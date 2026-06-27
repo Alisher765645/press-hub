@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PRESS HUB — Единый центр пресс-службы</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- ШАПКА -->
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark">⬡</span>
+      <span class="brand-name">PRESS&nbsp;HUB</span>
+      <span class="brand-sub">Единый центр пресс-службы</span>
+    </div>
+    <nav class="tabs" id="tabs">
+      <button class="tab active" data-tab="calendar">Контент-план</button>
+      <button class="tab" data-tab="archive">Архив материалов</button>
+      <button class="tab" data-tab="ai">ИИ-Ассистент</button>
+    </nav>
+    <button class="icon-btn" id="settingsBtn" title="Настройки ИИ">⚙</button>
+  </header>
+
+  <main class="container">
+    <!-- ============ КОНТЕНТ-ПЛАН ============ -->
+    <section class="view active" id="view-calendar">
+      <div class="stats" id="stats"></div>
+
+      <div class="calendar-layout">
+        <div class="calendar-main">
+          <div class="cal-header">
+            <div class="cal-nav">
+              <button class="ghost-btn" id="prevMonth">‹</button>
+              <h2 id="monthLabel">—</h2>
+              <button class="ghost-btn" id="nextMonth">›</button>
+            </div>
+            <div class="cal-actions">
+              <select id="filterCompany" class="select"></select>
+              <select id="filterType" class="select"></select>
+              <button class="accent-btn" id="addEventBtn">+ Добавить событие</button>
+            </div>
+          </div>
+          <div class="weekdays">
+            <span>Пн</span><span>Вт</span><span>Ср</span><span>Чт</span>
+            <span>Пт</span><span>Сб</span><span>Вс</span>
+          </div>
+          <div class="cal-grid" id="calGrid"></div>
+        </div>
+
+        <aside class="sidebar">
+          <div class="card">
+            <h3>Предстоящие события</h3>
+            <ul class="upcoming" id="upcoming"></ul>
+          </div>
+          <div class="card">
+            <h3>Предприятия</h3>
+            <div class="company-toggles" id="companyToggles"></div>
+          </div>
+          <div class="card">
+            <h3>Легенда</h3>
+            <ul class="legend" id="legend"></ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============ АРХИВ ============ -->
+    <section class="view" id="view-archive">
+      <div class="archive-bar">
+        <input type="text" id="archiveSearch" class="input" placeholder="Поиск по заголовку, тексту, предприятию…" />
+        <select id="archiveFilterType" class="select"></select>
+        <select id="archiveFilterCompany" class="select"></select>
+        <button class="accent-btn" id="addMaterialBtn">+ Добавить материал</button>
+      </div>
+      <div class="cards-grid" id="archiveGrid"></div>
+    </section>
+
+    <!-- ============ ИИ-АССИСТЕНТ ============ -->
+    <section class="view" id="view-ai">
+      <div class="ai-layout">
+        <div class="ai-input card">
+          <h3>Ввод</h3>
+          <label class="field-label">Режим обработки</label>
+          <div class="mode-grid" id="modeGrid"></div>
+
+          <label class="field-label">Контекст предприятия (опционально)</label>
+          <select id="aiCompany" class="select full"></select>
+
+          <label class="field-label">Загрузка файлов (TXT, CSV, MD)</label>
+          <input type="file" id="aiFiles" multiple accept=".txt,.csv,.md,.json" class="input" />
+          <div class="progress" id="aiProgress" hidden><div class="progress-bar"></div></div>
+
+          <label class="field-label">Текст для обработки</label>
+          <textarea id="aiInput" class="textarea" rows="10" placeholder="Вставьте текст отчёта, релиза или данных…"></textarea>
+
+          <button class="accent-btn full" id="aiRun">Обработать →</button>
+        </div>
+
+        <div class="ai-output card">
+          <div class="ai-output-head">
+            <h3>Результат</h3>
+            <div class="ai-output-actions" hidden id="aiOutActions">
+              <button class="ghost-btn" id="aiCopy">Копировать</button>
+              <button class="ghost-btn" id="aiSave">В архив</button>
+              <button class="ghost-btn" id="aiDownloadPng" hidden>Скачать PNG</button>
+            </div>
+          </div>
+          <div class="ai-result" id="aiResult">
+            <p class="muted">Выберите режим, добавьте текст и нажмите «Обработать».</p>
+          </div>
+          <canvas id="aiCanvas" width="900" height="600" hidden></canvas>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== МОДАЛЬНЫЕ ОКНА ===== -->
+  <div class="modal-backdrop" id="modalBackdrop" hidden>
+    <!-- Событие -->
+    <div class="modal" id="modalEvent" hidden>
+      <h3>Новое событие</h3>
+      <label class="field-label">Название</label>
+      <input id="evTitle" class="input" type="text" />
+      <div class="row">
+        <div>
+          <label class="field-label">Дата</label>
+          <input id="evDate" class="input" type="date" />
+        </div>
+        <div>
+          <label class="field-label">Приоритет</label>
+          <select id="evPriority" class="select full">
+            <option value="high">Высокий</option>
+            <option value="normal" selected>Обычный</option>
+            <option value="low">Низкий</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div>
+          <label class="field-label">Тип материала</label>
+          <select id="evType" class="select full"></select>
+        </div>
+        <div>
+          <label class="field-label">Предприятие</label>
+          <select id="evCompany" class="select full"></select>
+        </div>
+      </div>
+      <label class="field-label">Описание / ТЗ</label>
+      <textarea id="evDesc" class="textarea" rows="3"></textarea>
+      <div class="modal-actions">
+        <button class="ghost-btn" data-close>Отмена</button>
+        <button class="accent-btn" id="saveEvent">Сохранить</button>
+      </div>
+    </div>
+
+    <!-- Просмотр материала -->
+    <div class="modal" id="modalMaterial" hidden>
+      <h3 id="matTitle">—</h3>
+      <div class="mat-meta" id="matMeta"></div>
+      <div class="mat-text" id="matText"></div>
+      <div class="modal-actions">
+        <button class="ghost-btn" id="matToAi">Отправить в ИИ</button>
+        <button class="ghost-btn" data-close>Закрыть</button>
+      </div>
+    </div>
+
+    <!-- Добавить материал -->
+    <div class="modal" id="modalAddMaterial" hidden>
+      <h3>Новый материал</h3>
+      <label class="field-label">Заголовок</label>
+      <input id="amTitle" class="input" type="text" />
+      <div class="row">
+        <div>
+          <label class="field-label">Тип</label>
+          <select id="amType" class="select full"></select>
+        </div>
+        <div>
+          <label class="field-label">Дата</label>
+          <input id="amDate" class="input" type="date" />
+        </div>
+      </div>
+      <label class="field-label">Предприятие</label>
+      <select id="amCompany" class="select full"></select>
+      <label class="field-label">Текст</label>
+      <textarea id="amText" class="textarea" rows="5"></textarea>
+      <label class="field-label">Теги (через запятую)</label>
+      <input id="amTags" class="input" type="text" />
+      <div class="modal-actions">
+        <button class="ghost-btn" data-close>Отмена</button>
+        <button class="accent-btn" id="saveMaterial">Сохранить</button>
+      </div>
+    </div>
+
+    <!-- Настройки ИИ -->
+    <div class="modal" id="modalSettings" hidden>
+      <h3>Настройки ИИ</h3>
+      <p class="muted small">
+        Прототип работает в браузере. Для ИИ-функций укажите эндпоинт прокси
+        (рекомендуется) или API-ключ Anthropic для прямого доступа.
+        Значения хранятся локально в браузере.
+      </p>
+      <label class="field-label">URL прокси (опционально)</label>
+      <input id="setProxy" class="input" type="text" placeholder="https://your-proxy.example/v1/messages" />
+      <label class="field-label">API-ключ Anthropic (опционально)</label>
+      <input id="setKey" class="input" type="password" placeholder="sk-ant-…" />
+      <label class="field-label">Модель</label>
+      <input id="setModel" class="input" type="text" placeholder="claude-sonnet-4-6" />
+      <div class="modal-actions">
+        <button class="ghost-btn" data-close>Отмена</button>
+        <button class="accent-btn" id="saveSettings">Сохранить</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" hidden></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
