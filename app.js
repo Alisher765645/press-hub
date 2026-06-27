@@ -541,12 +541,12 @@ function drawInfographic(metrics, title) {
   const canvas = $("#aiCanvas");
   const ctx = canvas.getContext("2d");
   const W = canvas.width, H = canvas.height;
-  const accents = ["#e8a020", "#3b82f6", "#22c55e", "#a855f7", "#f97316", "#ef4444"];
+  const accents = ["#ffb627", "#4f9bff", "#2ee06a", "#c06bff", "#ff8c2b", "#ff5a5a"];
 
   ctx.fillStyle = "#0a0a0b";
   ctx.fillRect(0, 0, W, H);
 
-  ctx.fillStyle = "#e8a020";
+  ctx.fillStyle = "#ffb627";
   ctx.font = "bold 40px 'Inter', sans-serif";
   ctx.fillText(title, 50, 70);
   ctx.fillStyle = "#8a8a92";

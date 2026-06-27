@@ -3,16 +3,16 @@
   --bg-2: #141416;
   --bg-3: #1c1c1f;
   --border: #2a2a2e;
-  --text: #f2f2f3;
-  --muted: #8a8a92;
-  --amber: #e8a020;
-  --amber-dim: #b97f18;
+  --text: #f7f7f8;
+  --muted: #9a9aa3;
+  --amber: #ffb627;
+  --amber-dim: #d99115;
 
-  --pr: #3b82f6;
-  --report: #22c55e;
-  --media: #f97316;
-  --social: #a855f7;
-  --briefing: #ef4444;
+  --pr: #4f9bff;
+  --report: #2ee06a;
+  --media: #ff8c2b;
+  --social: #c06bff;
+  --briefing: #ff5a5a;
 
   --radius: 12px;
   --shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
@@ -323,7 +323,7 @@ h1, h2, h3 { font-weight: 600; }
   cursor: pointer;
   transition: background 0.15s;
 }
-.accent-btn:hover { background: #f5ad2e; }
+.accent-btn:hover { background: #ffc54d; }
 .accent-btn.full { width: 100%; margin-top: 14px; padding: 11px; }
 
 .ghost-btn {
