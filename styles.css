@@ -1,21 +1,22 @@
 :root {
-  --bg: #0a0a0b;
-  --bg-2: #141416;
-  --bg-3: #1c1c1f;
-  --border: #2a2a2e;
-  --text: #f7f7f8;
-  --muted: #9a9aa3;
-  --amber: #ffb627;
-  --amber-dim: #d99115;
+  --bg: #f4f5f7;
+  --bg-2: #ffffff;
+  --bg-3: #eceef1;
+  --border: #d9dce1;
+  --text: #1b1c1f;
+  --muted: #6b6c74;
+  --amber: #f5a000;
+  --amber-dim: #d98209;
+  --on-amber: #1b1c1f;
 
-  --pr: #4f9bff;
-  --report: #2ee06a;
-  --media: #ff8c2b;
-  --social: #c06bff;
-  --briefing: #ff5a5a;
+  --pr: #2f7fe6;
+  --report: #18b257;
+  --media: #ec6f12;
+  --social: #9b46e6;
+  --briefing: #e23b3b;
 
   --radius: 12px;
-  --shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+  --shadow: 0 8px 30px rgba(20, 25, 40, 0.12);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -68,7 +69,7 @@ h1, h2, h3 { font-weight: 600; }
   transition: all 0.15s;
 }
 .tab:hover { color: var(--text); background: var(--bg-3); }
-.tab.active { color: var(--bg); background: var(--amber); font-weight: 600; }
+.tab.active { color: var(--on-amber); background: var(--amber); font-weight: 600; }
 
 .icon-btn {
   background: var(--bg-3);
@@ -181,14 +182,14 @@ h1, h2, h3 { font-weight: 600; }
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  color: #fff;
-  border-left: 3px solid rgba(255,255,255,0.5);
+  color: var(--text);
+  border-left: 3px solid;
 }
-.ev-chip.pr { background: rgba(59,130,246,0.25); border-color: var(--pr); }
-.ev-chip.report { background: rgba(34,197,94,0.25); border-color: var(--report); }
-.ev-chip.media { background: rgba(249,115,22,0.25); border-color: var(--media); }
-.ev-chip.social { background: rgba(168,85,247,0.25); border-color: var(--social); }
-.ev-chip.briefing { background: rgba(239,68,68,0.25); border-color: var(--briefing); }
+.ev-chip.pr { background: rgba(47,127,230,0.16); border-color: var(--pr); }
+.ev-chip.report { background: rgba(24,178,87,0.16); border-color: var(--report); }
+.ev-chip.media { background: rgba(236,111,18,0.16); border-color: var(--media); }
+.ev-chip.social { background: rgba(155,70,230,0.16); border-color: var(--social); }
+.ev-chip.briefing { background: rgba(226,59,59,0.16); border-color: var(--briefing); }
 
 /* ===== SIDEBAR ===== */
 .sidebar { display: flex; flex-direction: column; gap: 16px; }
@@ -280,7 +281,7 @@ h1, h2, h3 { font-weight: 600; }
   transition: all 0.15s;
 }
 .mode-btn:hover { border-color: var(--amber-dim); }
-.mode-btn.active { background: var(--amber); color: var(--bg); border-color: var(--amber); font-weight: 600; }
+.mode-btn.active { background: var(--amber); color: var(--on-amber); border-color: var(--amber); font-weight: 600; }
 
 .ai-output-head { display: flex; justify-content: space-between; align-items: center; }
 .ai-output-actions { display: flex; gap: 6px; }
@@ -313,7 +314,7 @@ h1, h2, h3 { font-weight: 600; }
 
 .accent-btn {
   background: var(--amber);
-  color: var(--bg);
+  color: var(--on-amber);
   border: none;
   border-radius: 8px;
   padding: 9px 16px;
@@ -373,7 +374,7 @@ h1, h2, h3 { font-weight: 600; }
   bottom: 24px; left: 50%;
   transform: translateX(-50%);
   background: var(--amber);
-  color: var(--bg);
+  color: var(--on-amber);
   padding: 11px 22px;
   border-radius: 10px;
   font-weight: 600;
